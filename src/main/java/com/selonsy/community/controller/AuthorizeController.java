@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Copyright：Sichen International Co. Ltd.
  *
@@ -32,7 +34,9 @@ public class AuthorizeController {
     private String redirectUri;
 
     @GetMapping("/callback")
-    public String callback(@RequestParam(name = "code") String code, @RequestParam(name = "state") String state) {
+    public String callback(@RequestParam(name = "code") String code,
+                           @RequestParam(name = "state") String state,
+                           HttpServletRequest request) {
 
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setClient_id(clientId);
@@ -43,7 +47,15 @@ public class AuthorizeController {
 
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
         GithubUser githubUser = githubProvider.getUser(accessToken);
-        System.out.println(githubUser.getName());
-        return "index";
+//        System.out.println(githubUser.getName());
+
+        if (githubUser != null) {
+            // 登录成功，写cookie 和 session
+            request.getSession().setAttribute("user", githubUser);
+            return "redirect:/";  // 重定向到首页，可以去掉当前网页链接后面的参数等信息
+        } else {
+            // 登录失败，重新登录
+            return "redirect:/";
+        }
     }
 }
