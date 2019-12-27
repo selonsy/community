@@ -1,11 +1,8 @@
 HELP.md
-target/
-.DS_Store
-*/.DS_Store
+community.vpp.*
+/target/
 !.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**
-!**/src/test/**
-
+logs/
 ### STS ###
 .apt_generated
 .classpath
@@ -14,7 +11,8 @@ target/
 .settings
 .springBeans
 .sts4-cache
-
+.DS_Store
+.mvn
 ### IntelliJ IDEA ###
 .idea
 *.iws
@@ -27,7 +25,7 @@ target/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
+/build/
 
 ### VS Code ###
 .vscode/
