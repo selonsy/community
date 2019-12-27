@@ -32,7 +32,7 @@
         <profile>
             <id>production</id>
             <properties>
-                <db.url>jdbc:mysql://39.108.252.162:3306/community</db.url>
+                <db.url>jdbc:mysql://localhost:3306/community</db.url>
                 <db.user>root</db.user>
                 <db.password>95938</db.password>
             </properties>
